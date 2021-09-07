@@ -1,6 +1,7 @@
 package com.sampson.datereport.controller
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,12 +33,18 @@ class EventAdapter(
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         holder.txtEventName.text = events[position].title
-
+        Log.d("EventAdapter",events[position].title)
         holder.btnNotifiable.setOnClickListener {
             Toast.makeText(context,"Notify",Toast.LENGTH_SHORT).show()
         }
     }
 
-
     override fun getItemCount() = events.size
+
+    fun submitList(events : MutableList<Event>){
+        this.events = events
+        notifyDataSetChanged()
+    }
+
+
 }

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Date Report</string>
+    <string name="initial_date">Inicial Date:</string>
+    <string name="event_name">Event Name...</string>
+    <string name="days_to_remember">Days to remember...</string>
+    <string name="notify">Notify?</string>
 </resources>
