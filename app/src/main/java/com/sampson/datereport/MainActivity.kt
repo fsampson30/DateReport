@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.sampson.datereport.controller.EventAdapter
 import com.sampson.datereport.controller.returnDayofWeek
 import com.sampson.datereport.controller.returnTodaysDate
 
@@ -18,6 +20,10 @@ class MainActivity : AppCompatActivity() {
         val txtDate = findViewById<TextView>(R.id.txtMainAcivityTodayDate)
         val fabAddEvent = findViewById<FloatingActionButton>(R.id.fltBtnAddEvent)
         val rvEventList = findViewById<RecyclerView>(R.id.rvMainActivityEvents)
+
+        val adapter = EventAdapter(baseContext)
+        rvEventList.layoutManager = LinearLayoutManager(baseContext)
+        rvEventList.adapter = adapter
 
         txtDate.text = " ${returnDayofWeek()} ${returnTodaysDate()}"
 
