@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -47,20 +48,18 @@ class MainActivity : AppCompatActivity() {
             events.let { adapter.submitList(it) }
         }
 
+        val register = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            if (it.resultCode == RESULT_OK){
+                val event = it.data?.getSerializableExtra("event") as Event
+                eventViewModel.insert(event)
+            } else {
+                Toast.makeText(this,"Error",Toast.LENGTH_SHORT).show()
+            }
+        }
+
         fabAddEvent.setOnClickListener {
             val intent = Intent(baseContext,CreateEventActivity::class.java)
-            this.startActivityForResult(intent, newEventActivityRequestCode)
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK){
-            val event = data?.getSerializableExtra("event") as Event
-            eventViewModel.insert(event)
-        }
-        else {
-            Toast.makeText(this,"Error",Toast.LENGTH_SHORT).show()
+            register.launch(intent)
         }
     }
 
