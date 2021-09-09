@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/mainToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/design_default_color_primary"
+        app:titleTextColor="@color/white"
+        android:elevation="4dp"/>
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
 
     <LinearLayout
         android:id="@+id/llHeaderMainActivity"
@@ -22,6 +37,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             tools:text="Todays Date" />
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -39,12 +55,13 @@
         android:id="@+id/fltBtnAddEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/rvMainActivityEvents"
         app:layout_constraintTop_toBottomOf="@+id/rvMainActivityEvents"
         app:srcCompat="@drawable/ic_add_event_light" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

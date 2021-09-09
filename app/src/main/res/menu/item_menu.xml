@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/itemDeleteAll"
+        android:icon="@drawable/ic_delete_dark"
+        android:title="Clear List"
+        android:visible="true"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/itemExit"
+        android:icon="@drawable/ic_exit_dark"
+        android:title="Exit" />
+</menu>

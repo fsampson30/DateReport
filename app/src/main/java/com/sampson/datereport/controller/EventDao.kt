@@ -1,9 +1,6 @@
 package com.sampson.datereport.controller
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.sampson.datereport.model.Event
 
 @Dao
@@ -16,4 +13,7 @@ interface EventDao {
 
     @Query("DELETE FROM event_table")
     suspend fun deleteAll()
+
+    @Delete
+    suspend fun deleteEvent(event: Event)
 }

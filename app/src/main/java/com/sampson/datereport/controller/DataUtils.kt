@@ -4,7 +4,7 @@ import android.util.Log
 import java.text.SimpleDateFormat
 import java.util.*
 
-val simpleDate = SimpleDateFormat("dd/MM/yyyy hh:mm:ss")
+val simpleDate = SimpleDateFormat("dd/MM/yyyy")
 val todaysDate = simpleDate.format(Date())
 val currentDate = Calendar.getInstance()
 

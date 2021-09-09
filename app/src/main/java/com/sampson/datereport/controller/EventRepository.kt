@@ -17,4 +17,8 @@ class EventRepository(private val eventDao: EventDao) {
     suspend fun delete() {
         eventDao.deleteAll()
     }
+
+    suspend fun deleteEvent(event: Event){
+        eventDao.deleteEvent(event)
+    }
 }

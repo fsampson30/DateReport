@@ -46,5 +46,9 @@ class EventAdapter(
         notifyDataSetChanged()
     }
 
+    fun getEventAtPosition(position: Int) : Event {
+        return events[position]
+    }
+
 
 }
