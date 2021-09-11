@@ -1,28 +1,30 @@
 package com.sampson.datereport.controller
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.sampson.datereport.R
 import com.sampson.datereport.model.Event
 
 class EventAdapter(
-    val context : Context
+    val context: Context
 
 ) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
 
     var events = mutableListOf<Event>()
 
 
-    class EventViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+    class EventViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val txtEventName = itemView.findViewById<TextView>(R.id.txtItemEventName)
         val btnNotifiable = itemView.findViewById<ImageButton>(R.id.imgBtnItemEventNotify)
+        val llEvent = itemView.findViewById<LinearLayout>(R.id.llEventItem)
 
     }
 
@@ -33,22 +35,27 @@ class EventAdapter(
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         holder.txtEventName.text = events[position].title
-        Log.d("EventAdapter",events[position].title)
+        val days = returnDaysToExpire(events[position].inicialDate)
+        val notifyDate = returnNotifyDate(events[position].daysToNotify)
+        when (days) {
+            !in 0..2 -> holder.llEvent.background = ContextCompat.getDrawable(context,R.drawable.shape_red)
+            in 1..3 -> holder.llEvent.background = ContextCompat.getDrawable(context,R.drawable.shape_yellow)
+            in 0..15-> holder.llEvent.background = ContextCompat.getDrawable(context,R.drawable.shape_green)
+        }
         holder.btnNotifiable.setOnClickListener {
-            Toast.makeText(context,"Notify",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, events[position].inicialDate, Toast.LENGTH_SHORT).show()
         }
     }
 
     override fun getItemCount() = events.size
 
-    fun submitList(events : MutableList<Event>){
+    fun submitList(events: MutableList<Event>) {
         this.events = events
         notifyDataSetChanged()
     }
 
-    fun getEventAtPosition(position: Int) : Event {
+    fun getEventAtPosition(position: Int): Event {
         return events[position]
     }
-
 
 }

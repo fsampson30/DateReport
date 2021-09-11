@@ -9,8 +9,10 @@
         android:id="@+id/llEventItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@drawable/shape_red"
         android:orientation="horizontal"
-        android:padding="8dp"
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,6 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             tools:text="Event Name" />
 
         <ImageButton

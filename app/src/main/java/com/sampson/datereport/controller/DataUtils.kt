@@ -8,7 +8,7 @@ val simpleDate = SimpleDateFormat("dd/MM/yyyy")
 val todaysDate = simpleDate.format(Date())
 val currentDate = Calendar.getInstance()
 
-fun returnDayofWeek() : String {
+fun returnDayofWeek(): String {
     when (currentDate[Calendar.DAY_OF_WEEK]) {
         1 -> return "Sunday"
         2 -> return "Monday"
@@ -21,6 +21,19 @@ fun returnDayofWeek() : String {
     return ""
 }
 
-fun returnTodaysDate() : String {
+fun returnTodaysDateString(): String {
     return todaysDate
 }
+
+fun returnDaysToExpire(inicialDate: String): Long {
+    val iDate = simpleDate.parse(inicialDate)
+    Log.i("TAG",Calendar.getInstance().toString())
+    return (Calendar.getInstance().timeInMillis - iDate.time) / (1000 * 60 * 60 * 24)
+}
+
+fun returnNotifyDate(daysToNotify: Int): String {
+    val calendar = Calendar.getInstance()
+    calendar.add(Calendar.DATE, daysToNotify)
+    return simpleDate.format(calendar.time)
+}
+

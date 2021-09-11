@@ -1,6 +1,5 @@
 package com.sampson.datereport
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.sampson.datereport.controller.EventAdapter
 import com.sampson.datereport.controller.EventsApplication
 import com.sampson.datereport.controller.returnDayofWeek
-import com.sampson.datereport.controller.returnTodaysDate
+import com.sampson.datereport.controller.returnTodaysDateString
 import com.sampson.datereport.model.Event
 import com.sampson.datereport.model.EventViewModel
 import com.sampson.datereport.model.EventViewModelFactory
@@ -50,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         rvEventList.layoutManager = LinearLayoutManager(baseContext)
         rvEventList.adapter = adapter
 
-        txtDate.text = " ${returnDayofWeek()} ${returnTodaysDate()}"
+        txtDate.text = " ${returnDayofWeek()} ${returnTodaysDateString()}"
 
         eventViewModel.allEvents.observe(this) { events ->
             events.let { adapter.submitList(it) }
