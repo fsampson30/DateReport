@@ -4,4 +4,8 @@
     <string name="event_name">Event Name...</string>
     <string name="days_to_remember">Days to remember...</string>
     <string name="notify">Notify?</string>
+    <string name="all_events">All Events</string>
+    <string name="on_time">On Time</string>
+    <string name="warning">Warning</string>
+    <string name="expired">Expired</string>
 </resources>

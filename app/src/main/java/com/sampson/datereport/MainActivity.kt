@@ -4,9 +4,11 @@ import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.RadioButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -41,6 +43,10 @@ class MainActivity : AppCompatActivity() {
         val fabAddEvent = findViewById<FloatingActionButton>(R.id.fltBtnAddEvent)
         val rvEventList = findViewById<RecyclerView>(R.id.rvMainActivityEvents)
         val toolbar = findViewById<Toolbar>(R.id.mainToolbar)
+        val rdoAllEvents = findViewById<RadioButton>(R.id.rdoBtnMainActivityAll)
+        val rdoBtnGreen = findViewById<RadioButton>(R.id.rdoBtnMainActivityGreen)
+        val rdoBtnYellow = findViewById<RadioButton>(R.id.rdoBtnMainActivityYellow)
+        val rdoBtnRed = findViewById<RadioButton>(R.id.rdoBtnMainActivityRed)
 
         setSupportActionBar(toolbar)
 
@@ -61,6 +67,30 @@ class MainActivity : AppCompatActivity() {
                 eventViewModel.insert(event)
             } else {
                 Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        rdoAllEvents.setOnClickListener {
+            eventViewModel.allEvents.observe(this) { events ->
+                events.let { adapter.submitList(it) }
+            }
+        }
+
+        rdoBtnGreen.setOnClickListener {
+            eventViewModel.onTimeEvents.observe(this) { events ->
+                events.let { adapter.submitList(it) }
+            }
+        }
+
+        rdoBtnYellow.setOnClickListener {
+            eventViewModel.warningEvents.observe(this) { events ->
+                events.let { adapter.submitList(it) }
+            }
+        }
+
+        rdoBtnRed.setOnClickListener {
+            eventViewModel.expiredEvents.observe(this) { events ->
+                events.let { adapter.submitList(it) }
             }
         }
 

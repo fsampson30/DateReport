@@ -7,6 +7,9 @@ import kotlinx.coroutines.launch
 class EventViewModel(private val repository: EventRepository) : ViewModel() {
 
     val allEvents: LiveData<MutableList<Event>> = repository.allEvents.asLiveData()
+    val onTimeEvents : LiveData<MutableList<Event>> = repository.onTimeEvents.asLiveData()
+    val warningEvents : LiveData<MutableList<Event>> = repository.warningEvents.asLiveData()
+    val expiredEvents : LiveData<MutableList<Event>> = repository.expiredEvents.asLiveData()
 
     fun insert(event: Event) = viewModelScope.launch {
         repository.insert(event)
