@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity() {
             if (it.resultCode == RESULT_OK) {
                 val event = it.data?.getSerializableExtra("event") as Event
                 eventViewModel.insert(event)
+                rdoAllEvents.isChecked = true
             } else {
                 Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
             }

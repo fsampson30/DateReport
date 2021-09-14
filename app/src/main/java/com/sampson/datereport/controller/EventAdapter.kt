@@ -1,6 +1,7 @@
 package com.sampson.datereport.controller
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,12 +36,14 @@ class EventAdapter(
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         holder.txtEventName.text = events[position].title
-        val days = returnDaysToExpire(events[position].inicialDate)
+        val correct = returnDateCorrect(events[position].notifyDate)
+        Log.i("TAG", correct.toString())
+        val days = returnDaysToExpire(correct)
         val notifyDate = returnNotifyDate(events[position].daysToNotify)
-        when (days) {
-            !in 0..2 -> holder.llEvent.background = ContextCompat.getDrawable(context,R.drawable.shape_red)
-            in 1..3 -> holder.llEvent.background = ContextCompat.getDrawable(context,R.drawable.shape_yellow)
-            in 0..15-> holder.llEvent.background = ContextCompat.getDrawable(context,R.drawable.shape_green)
+        when (days.toInt()) {
+            0 -> holder.llEvent.background = ContextCompat.getDrawable(context,R.drawable.shape_red)
+            in 1..2 -> holder.llEvent.background = ContextCompat.getDrawable(context,R.drawable.shape_yellow)
+            in 3..100 -> holder.llEvent.background = ContextCompat.getDrawable(context,R.drawable.shape_green)
         }
         holder.btnNotifiable.setOnClickListener {
             Toast.makeText(context, events[position].inicialDate, Toast.LENGTH_SHORT).show()

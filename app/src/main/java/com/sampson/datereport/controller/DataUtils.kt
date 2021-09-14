@@ -27,13 +27,24 @@ fun returnTodaysDateString(): String {
 
 fun returnDaysToExpire(inicialDate: String): Long {
     val iDate = simpleDate.parse(inicialDate)
-    Log.i("TAG",Calendar.getInstance().toString())
-    return (Calendar.getInstance().timeInMillis - iDate.time) / (1000 * 60 * 60 * 24)
+    val test = (iDate.time - Calendar.getInstance().timeInMillis) / (1000 * 60 * 60 * 24)
+    Log.i("TAG", test.toString())
+    return (iDate.time - Calendar.getInstance().timeInMillis) / (1000 * 60 * 60 * 24)
 }
 
 fun returnNotifyDate(daysToNotify: Int): String {
     val calendar = Calendar.getInstance()
     calendar.add(Calendar.DATE, daysToNotify)
     return simpleDate.format(calendar.time)
+}
+
+fun returnDateReversed(dateToInvert: String): String {
+    var returnDate = "${dateToInvert.subSequence(6,10) }-${dateToInvert.subSequence(3,5)}-${dateToInvert.subSequence(0,2)}"
+    return returnDate
+}
+
+fun returnDateCorrect(dateToInvert: String): String {
+    var returnDate = "${dateToInvert.subSequence(8,10)}/${dateToInvert.subSequence(5,7)}/${dateToInvert.subSequence(0,4) }"
+    return returnDate
 }
 

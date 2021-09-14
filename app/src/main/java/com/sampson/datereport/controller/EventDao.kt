@@ -8,13 +8,13 @@ interface EventDao {
     @Query("SELECT * FROM event_table ORDER BY inicialDate")
     fun getAllEvents(): kotlinx.coroutines.flow.Flow<MutableList<Event>>
 
-    @Query("SELECT * FROM event_table WHERE CAST(JulianDay('now') - JulianDay(inicialDate) as INTEGER) > 3")
+    @Query("SELECT * FROM event_table WHERE JulianDay(notifyDate) - JulianDay('now') > 3")
     fun getOnTimeEvents(): kotlinx.coroutines.flow.Flow<MutableList<Event>>
 
-    @Query("SELECT * FROM event_table WHERE JulianDay('now') - JulianDay(inicialDate) < 2")
+    @Query("SELECT * FROM event_table WHERE JulianDay(notifyDate) - JulianDay('now') > 0 AND JulianDay(notifyDate) - JulianDay('now') < 3")
     fun getWarningEvents(): kotlinx.coroutines.flow.Flow<MutableList<Event>>
 
-    @Query("SELECT * FROM event_table WHERE CAST(JulianDay('now') - JulianDay(inicialDate) as INTEGER) <= 0")
+    @Query("SELECT * FROM event_table WHERE JulianDay(notifyDate) - JulianDay('now') <= 0")
     fun getExpiredEvents(): kotlinx.coroutines.flow.Flow<MutableList<Event>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

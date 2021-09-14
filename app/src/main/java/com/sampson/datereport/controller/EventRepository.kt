@@ -9,7 +9,7 @@ class EventRepository(private val eventDao: EventDao) {
     val allEvents: kotlinx.coroutines.flow.Flow<MutableList<Event>> = eventDao.getAllEvents()
     val onTimeEvents : kotlinx.coroutines.flow.Flow<MutableList<Event>> = eventDao.getOnTimeEvents()
     val warningEvents : kotlinx.coroutines.flow.Flow<MutableList<Event>> = eventDao.getWarningEvents()
-    val expiredEvents : kotlinx.coroutines.flow.Flow<MutableList<Event>> = eventDao.getWarningEvents()
+    val expiredEvents : kotlinx.coroutines.flow.Flow<MutableList<Event>> = eventDao.getExpiredEvents()
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread

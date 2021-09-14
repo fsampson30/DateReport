@@ -8,11 +8,12 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.CalendarView
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.ImageButton
+import android.view.inputmethod.EditorInfo
+import android.widget.*
 import androidx.appcompat.widget.Toolbar
+import com.sampson.datereport.controller.returnDateReversed
+import com.sampson.datereport.controller.returnNotifyDate
+import com.sampson.datereport.controller.returnTodaysDateString
 
 import com.sampson.datereport.model.Event
 import kotlin.system.exitProcess
@@ -24,6 +25,7 @@ class CreateEventActivity : AppCompatActivity() {
     lateinit var txtEventTitle : EditText
     lateinit var txtInitialDate : EditText
     lateinit var txtDaysToNotify : EditText
+    lateinit var txtNotifyDate : EditText
     lateinit var cbIsNotifiable : CheckBox
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,11 +35,28 @@ class CreateEventActivity : AppCompatActivity() {
         txtEventTitle = findViewById(R.id.edtCreateEventTitle)
         txtInitialDate = findViewById(R.id.edtCreateEventInitialDate)
         txtDaysToNotify = findViewById(R.id.edtCreateEventDaysToRemember)
+        txtNotifyDate = findViewById(R.id.edtCreateEventNotifyDate)
         cbIsNotifiable = findViewById(R.id.cbCreateEventIsNofifiable)
         val toolbar = findViewById<Toolbar>(R.id.createToolbar)
 
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        txtInitialDate.append(returnTodaysDateString())
+        txtInitialDate.isEnabled = false
+
+        txtNotifyDate.isEnabled = false
+
+
+        txtDaysToNotify.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                txtNotifyDate.text.clear()
+                txtNotifyDate.append(returnNotifyDate(txtDaysToNotify.text.toString().toInt()))
+                true
+            } else {
+                false
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -60,12 +79,12 @@ class CreateEventActivity : AppCompatActivity() {
 
     private fun getScreenInformation(){
         event.title = txtEventTitle.text.toString()
-        event.inicialDate = txtInitialDate.text.toString()
+        event.inicialDate = returnDateReversed(txtInitialDate.text.toString())
         event.daysToNotify = if(txtDaysToNotify.text.isEmpty()) 0 else txtDaysToNotify.text.toString().toInt()
         event.isNotifiable = cbIsNotifiable.isChecked
         event.finishDate = ""
         event.isOpen = true
-        event.notifyDate = ""
+        event.notifyDate = returnDateReversed(txtNotifyDate.text.toString())
         newEvent.add(event)
     }
 }
