@@ -1,6 +1,7 @@
 package com.sampson.datereport.controller
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.sampson.datereport.CreateEventActivity
+import com.sampson.datereport.DetailsEventActivity
 import com.sampson.datereport.R
 import com.sampson.datereport.model.Event
 
@@ -41,12 +44,23 @@ class EventAdapter(
         val days = returnDaysToExpire(correct)
         val notifyDate = returnNotifyDate(events[position].daysToNotify)
         when (days.toInt()) {
-            0 -> holder.llEvent.background = ContextCompat.getDrawable(context,R.drawable.shape_red)
-            in 1..2 -> holder.llEvent.background = ContextCompat.getDrawable(context,R.drawable.shape_yellow)
-            in 3..100 -> holder.llEvent.background = ContextCompat.getDrawable(context,R.drawable.shape_green)
+            in -100..0 -> {
+                holder.llEvent.background = ContextCompat.getDrawable(context,R.drawable.shape_red)
+                holder.btnNotifiable.background = ContextCompat.getDrawable(context,R.drawable.shape_red)
+            }
+            in 1..2 -> {
+                holder.llEvent.background = ContextCompat.getDrawable(context,R.drawable.shape_yellow)
+                holder.btnNotifiable.background = ContextCompat.getDrawable(context,R.drawable.shape_yellow)
+            }
+            in 3..100 -> {
+                holder.llEvent.background = ContextCompat.getDrawable(context,R.drawable.shape_green)
+                holder.btnNotifiable.background = ContextCompat.getDrawable(context,R.drawable.shape_green)
+            }
         }
         holder.btnNotifiable.setOnClickListener {
-            Toast.makeText(context, events[position].inicialDate, Toast.LENGTH_SHORT).show()
+            val intent = Intent(context, DetailsEventActivity::class.java)
+            intent.putExtra("event", events[position])
+            context.startActivity(intent)
         }
     }
 

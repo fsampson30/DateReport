@@ -4,10 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.appcompat.widget.Toolbar
@@ -16,7 +14,6 @@ import com.sampson.datereport.controller.returnNotifyDate
 import com.sampson.datereport.controller.returnTodaysDateString
 
 import com.sampson.datereport.model.Event
-import kotlin.system.exitProcess
 
 class CreateEventActivity : AppCompatActivity() {
     val event = Event()

@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -65,7 +64,9 @@ class MainActivity : AppCompatActivity() {
             if (it.resultCode == RESULT_OK) {
                 val event = it.data?.getSerializableExtra("event") as Event
                 eventViewModel.insert(event)
-                rdoAllEvents.isChecked = true
+                eventViewModel.allEvents.observe(this) { events ->
+                    events.let { adapter.submitList(it) }
+                }
             } else {
                 Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
             }
