@@ -19,11 +19,11 @@ class CreateEventActivity : AppCompatActivity() {
     val event = Event()
     val newEvent = mutableListOf<Event>()
 
-    lateinit var txtEventTitle : EditText
-    lateinit var txtInitialDate : EditText
-    lateinit var txtDaysToNotify : EditText
-    lateinit var txtNotifyDate : EditText
-    lateinit var cbIsNotifiable : CheckBox
+    lateinit var txtEventTitle: EditText
+    lateinit var txtInitialDate: EditText
+    lateinit var txtDaysToNotify: EditText
+    lateinit var txtNotifyDate: EditText
+    lateinit var cbIsNotifiable: CheckBox
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,20 +64,29 @@ class CreateEventActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.eventMenuConfirm -> {
-                getScreenInformation()
-                val replyIntent = Intent()
-                replyIntent.putExtra("event", newEvent[0])
-                setResult(Activity.RESULT_OK, replyIntent)
-                finish()
+                if (txtEventTitle.text.isEmpty() || txtDaysToNotify.text.isEmpty()) {
+                    txtEventTitle.error = "Empty Field"
+                    txtDaysToNotify.error = "Empty Field"
+                } else {
+                    if (txtNotifyDate.text.isEmpty()) {
+                        txtNotifyDate.append(returnNotifyDate(txtDaysToNotify.text.toString().toInt()))
+                    } else {
+                        getScreenInformation()
+                        val replyIntent = Intent()
+                        replyIntent.putExtra("event", newEvent[0])
+                        setResult(Activity.RESULT_OK, replyIntent)
+                        finish()
+                    }
                 }
             }
+        }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun getScreenInformation(){
+    private fun getScreenInformation() {
         event.title = txtEventTitle.text.toString()
         event.inicialDate = returnDateReversed(txtInitialDate.text.toString())
-        event.daysToNotify = if(txtDaysToNotify.text.isEmpty()) 0 else txtDaysToNotify.text.toString().toInt()
+        event.daysToNotify = txtDaysToNotify.text.toString().toInt()
         event.isNotifiable = cbIsNotifiable.isChecked
         event.finishDate = ""
         event.isOpen = true

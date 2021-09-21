@@ -29,7 +29,7 @@ import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
 
-    //private val newEventActivityRequestCode = 1
+    private val newEventActivityRequestCode = 1
     private val eventViewModel: EventViewModel by viewModels {
         EventViewModelFactory((application as EventsApplication).repository)
     }
@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
 
         txtDate.text = " ${returnDayofWeek()} ${returnTodaysDateString()}"
 
+        rdoAllEvents.isChecked = true
         eventViewModel.allEvents.observe(this) { events ->
             events.let { adapter.submitList(it) }
         }
@@ -64,6 +65,7 @@ class MainActivity : AppCompatActivity() {
             if (it.resultCode == RESULT_OK) {
                 val event = it.data?.getSerializableExtra("event") as Event
                 eventViewModel.insert(event)
+                rdoAllEvents.isChecked = true
                 eventViewModel.allEvents.observe(this) { events ->
                     events.let { adapter.submitList(it) }
                 }
@@ -73,24 +75,28 @@ class MainActivity : AppCompatActivity() {
         }
 
         rdoAllEvents.setOnClickListener {
+            rdoAllEvents.isChecked = true
             eventViewModel.allEvents.observe(this) { events ->
                 events.let { adapter.submitList(it) }
             }
         }
 
         rdoBtnGreen.setOnClickListener {
+            rdoBtnGreen.isChecked = true
             eventViewModel.onTimeEvents.observe(this) { events ->
                 events.let { adapter.submitList(it) }
             }
         }
 
         rdoBtnYellow.setOnClickListener {
+            rdoBtnYellow.isChecked = true
             eventViewModel.warningEvents.observe(this) { events ->
                 events.let { adapter.submitList(it) }
             }
         }
 
         rdoBtnRed.setOnClickListener {
+            rdoBtnRed.isChecked = true
             eventViewModel.expiredEvents.observe(this) { events ->
                 events.let { adapter.submitList(it) }
             }
@@ -114,6 +120,10 @@ class MainActivity : AppCompatActivity() {
                 val position = viewHolder.adapterPosition
                 val event = adapter.getEventAtPosition(position)
                 eventViewModel.deleteEvent(event)
+                rdoAllEvents.isChecked = true
+                eventViewModel.allEvents.observe(this@MainActivity) { events ->
+                    events.let { adapter.submitList(it) }
+                }
             }
         }
         val itemTouchHelper = ItemTouchHelper(helper)

@@ -48,8 +48,6 @@ abstract class EventRoomDatabase : RoomDatabase() {
 
         suspend fun populateDatabase(eventDao: EventDao) {
             eventDao.deleteAll()
-            val event = Event(0, "Testing", "07/09/2021", 7, "14/09/2021", "", true, true)
-            eventDao.insert(event)
         }
     }
 }

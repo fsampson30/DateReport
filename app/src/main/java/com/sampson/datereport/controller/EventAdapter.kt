@@ -40,9 +40,8 @@ class EventAdapter(
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         holder.txtEventName.text = events[position].title
         val correct = returnDateCorrect(events[position].notifyDate)
-        Log.i("TAG", correct.toString())
+        Log.i("ERROR", correct.toString())
         val days = returnDaysToExpire(correct)
-        val notifyDate = returnNotifyDate(events[position].daysToNotify)
         when (days.toInt()) {
             in -100..0 -> {
                 holder.llEvent.background = ContextCompat.getDrawable(context,R.drawable.shape_red)
@@ -59,6 +58,7 @@ class EventAdapter(
         }
         holder.btnNotifiable.setOnClickListener {
             val intent = Intent(context, DetailsEventActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.putExtra("event", events[position])
             context.startActivity(intent)
         }
