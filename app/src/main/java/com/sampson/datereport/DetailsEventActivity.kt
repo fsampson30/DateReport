@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.Switch
 import androidx.appcompat.widget.Toolbar
 import com.sampson.datereport.controller.returnDateCorrect
 import com.sampson.datereport.model.Event
@@ -17,8 +18,8 @@ class DetailsEventActivity : AppCompatActivity() {
         val txtDaysEvent = findViewById<EditText>(R.id.edtDetailsEventDaysToRemember)
         val txtInitialDate = findViewById<EditText>(R.id.edtDetailsEventInitialDate)
         val txtNotifyDate = findViewById<EditText>(R.id.edtDetailsEventNotifyDate)
-        val cbNotify = findViewById<CheckBox>(R.id.cbDetailsEventIsNofifiable)
         val toolbar = findViewById<Toolbar>(R.id.DetailsToolbar)
+        val swtNotify = findViewById<Switch>(R.id.switchDetailsActivityIsNotifiable)
 
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -29,12 +30,12 @@ class DetailsEventActivity : AppCompatActivity() {
         txtDaysEvent.append(event.daysToNotify.toString())
         txtInitialDate.append(returnDateCorrect(event.inicialDate))
         txtNotifyDate.append(returnDateCorrect(event.notifyDate))
-        cbNotify.isChecked = event.isNotifiable
+        swtNotify.isChecked = event.isNotifiable
         txtNameEvent.isEnabled = false
         txtDaysEvent.isEnabled = false
         txtInitialDate.isEnabled = false
         txtNotifyDate.isEnabled = false
-        cbNotify.isEnabled = false
+        swtNotify.isEnabled = false
 
     }
 }

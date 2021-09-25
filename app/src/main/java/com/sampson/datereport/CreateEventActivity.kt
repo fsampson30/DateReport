@@ -23,7 +23,7 @@ class CreateEventActivity : AppCompatActivity() {
     lateinit var txtInitialDate: EditText
     lateinit var txtDaysToNotify: EditText
     lateinit var txtNotifyDate: EditText
-    lateinit var cbIsNotifiable: CheckBox
+    lateinit var swtIsNotifiable: Switch
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +33,8 @@ class CreateEventActivity : AppCompatActivity() {
         txtInitialDate = findViewById(R.id.edtCreateEventInitialDate)
         txtDaysToNotify = findViewById(R.id.edtCreateEventDaysToRemember)
         txtNotifyDate = findViewById(R.id.edtCreateEventNotifyDate)
-        cbIsNotifiable = findViewById(R.id.cbCreateEventIsNofifiable)
+        swtIsNotifiable = findViewById(R.id.switchCreateActivityNotify)
+
         val toolbar = findViewById<Toolbar>(R.id.createToolbar)
 
         setSupportActionBar(toolbar)
@@ -54,6 +55,7 @@ class CreateEventActivity : AppCompatActivity() {
                 false
             }
         }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -69,7 +71,11 @@ class CreateEventActivity : AppCompatActivity() {
                     txtDaysToNotify.error = "Empty Field"
                 } else {
                     if (txtNotifyDate.text.isEmpty()) {
-                        txtNotifyDate.append(returnNotifyDate(txtDaysToNotify.text.toString().toInt()))
+                        txtNotifyDate.append(
+                            returnNotifyDate(
+                                txtDaysToNotify.text.toString().toInt()
+                            )
+                        )
                     } else {
                         getScreenInformation()
                         val replyIntent = Intent()
@@ -87,10 +93,11 @@ class CreateEventActivity : AppCompatActivity() {
         event.title = txtEventTitle.text.toString()
         event.inicialDate = returnDateReversed(txtInitialDate.text.toString())
         event.daysToNotify = txtDaysToNotify.text.toString().toInt()
-        event.isNotifiable = cbIsNotifiable.isChecked
+        event.isNotifiable = swtIsNotifiable.isChecked
         event.finishDate = ""
         event.isOpen = true
         event.notifyDate = returnDateReversed(txtNotifyDate.text.toString())
         newEvent.add(event)
     }
 }
+

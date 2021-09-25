@@ -69,8 +69,6 @@ class MainActivity : AppCompatActivity() {
                 eventViewModel.allEvents.observe(this) { events ->
                     events.let { adapter.submitList(it) }
                 }
-            } else {
-                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
             }
         }
 

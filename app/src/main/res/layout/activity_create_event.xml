@@ -87,8 +87,8 @@
             android:ems="10"
             android:inputType="date" />
 
-        <CheckBox
-            android:id="@+id/cbCreateEventIsNofifiable"
+        <Switch
+            android:id="@+id/switchCreateActivityNotify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/notify" />
