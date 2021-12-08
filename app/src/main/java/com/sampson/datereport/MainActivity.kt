@@ -9,10 +9,11 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.RadioButton
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -48,7 +49,6 @@ class MainActivity : AppCompatActivity() {
         val rdoBtnRed = findViewById<RadioButton>(R.id.rdoBtnMainActivityRed)
 
         setSupportActionBar(toolbar)
-
 
         val adapter = EventAdapter(baseContext)
         rvEventList.layoutManager = LinearLayoutManager(baseContext)
